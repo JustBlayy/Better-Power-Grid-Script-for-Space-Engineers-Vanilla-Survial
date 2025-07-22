@@ -51,12 +51,12 @@ public sealed class Program : MyGridProgram {
 
 
     /*
-                    Constants for names of Block Groups and Display LCD.
-                    The text between the quotes("") should match the names of the groups and display LCD on your grid.
-                    You can change them to match your setup. 
-                    */
+    Constants for names of Block Groups and Display LCD.
+    The text between the quotes("") should match the names of the groups and display LCD on your grid.
+    You can change them to match your setup. 
+    */
 
-        const string mainGridName = "MB PowerGrid"; /* Change the text between quotes("") to the NAME grid that the script runs on. */
+    const string mainGridName = "MB PowerGrid"; /* Change the text between quotes("") to the NAME grid that the script runs on. */
     const string producerGroup = "MB PowerProducer"; /* Change the text between quotes("") to the NAME of the group that contains your Power Producers. */
     const string storageGroup = "MB PowerStorage"; /* Change the text between quotes("") to the NAME of the group that contains your Power Storage  on. */
     const string outputDisplay = "MB PowerDisplay"; /* Change the text between quotes("") to the name of the LCD you want the output to be displayed on. */
