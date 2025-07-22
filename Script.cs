@@ -26,12 +26,37 @@ public sealed class Program : MyGridProgram {
     #region BetterPowerScript
 
     /*
-    Constants for names of Block Groups and Display LCD.
-    The text between the quotes("") should match the names of the groups and display LCD on your grid.
-    You can change them to match your setup. 
-    */ 
+    MIT License
 
-    const string mainGridName = "MB PowerGrid"; /* Change the text between quotes("") to the NAME grid that the script runs on. */
+    Copyright (c) 2025 Blayy
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+
+    **THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.**
+    */
+
+
+    /*
+                    Constants for names of Block Groups and Display LCD.
+                    The text between the quotes("") should match the names of the groups and display LCD on your grid.
+                    You can change them to match your setup. 
+                    */
+
+        const string mainGridName = "MB PowerGrid"; /* Change the text between quotes("") to the NAME grid that the script runs on. */
     const string producerGroup = "MB PowerProducer"; /* Change the text between quotes("") to the NAME of the group that contains your Power Producers. */
     const string storageGroup = "MB PowerStorage"; /* Change the text between quotes("") to the NAME of the group that contains your Power Storage  on. */
     const string outputDisplay = "MB PowerDisplay"; /* Change the text between quotes("") to the name of the LCD you want the output to be displayed on. */
