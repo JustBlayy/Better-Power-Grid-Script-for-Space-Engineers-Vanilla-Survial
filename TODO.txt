@@ -1,0 +1,42 @@
+TODO:
+
+    # Display Control:
+        - type of producers.
+        - battery types.
+        - grid names.
+        - subgrid connections.
+_______________________________________________________________________________________________________________________________________________    
+IN-PROGRESS:
+
+    # Rework Getting Block Groups
+        - Only those of the main grid, even if there are subGrids connected.
+
+    # Power Consumed: (MW or kW)
+        - required input for main grid.
+        - current power consumed by main grid.
+        - subgrid power consumption.   
+
+    # Display Control:
+        - be able to turn on or off to see "Power producer info". 
+        - be able to turn on or off to see "Power storage info".
+        - be able to turn on or off to see "Power Consumers info".  
+_______________________________________________________________________________________________________________________________________________
+DONE:
+
+    # Producer Information: (MW)
+
+        • Information
+            - power currently produced.
+            - max power that can be produced.
+            - power efficiency (%).
+
+    # Storage Information: (MW)
+
+        • Information
+            - power currently stored.
+            - max possible power storage.
+            - storage efficiency (%). 
+_______________________________________________________________________________________________________________________________________________
+BUGS:
+
+    no such thing only features
