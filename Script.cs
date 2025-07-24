@@ -49,14 +49,12 @@ public sealed class Program : MyGridProgram {
     SOFTWARE.**
     */
 
-
     /*
     Constants for names of Block Groups and Display LCD.
     The text between the quotes("") should match the names of the groups and display LCD on your grid.
     You can change them to match your setup. 
     */
 
-    const string mainGridName = "MB PowerGrid"; /* Change the text between quotes("") to the NAME grid that the script runs on. */
     const string producerGroup = "MB PowerProducer"; /* Change the text between quotes("") to the NAME of the group that contains your Power Producers. */
     const string storageGroup = "MB PowerStorage"; /* Change the text between quotes("") to the NAME of the group that contains your Power Storage  on. */
     const string outputDisplay = "MB PowerDisplay"; /* Change the text between quotes("") to the name of the LCD you want the output to be displayed on. */
@@ -80,6 +78,7 @@ public sealed class Program : MyGridProgram {
     // Objects
     IMyTextSurface terminalLCD;
     IMyTextPanel displayLCD;
+    List<string> subGridNames = new List<string>(); 
     List<IMyBlockGroup> gridGroups = new List<IMyBlockGroup>();
     List <IMyPowerProducer> powerProducers = new List<IMyPowerProducer>();
     List <IMyBatteryBlock> powerStrorage = new List<IMyBatteryBlock>();
@@ -91,6 +90,7 @@ public sealed class Program : MyGridProgram {
     bool displayLCDExist;
     string output;
     string debugOutput = string.Empty;
+    string mainGridName;
 
     // Methodes
     void writeOutput(string textToWrite, bool keep) // Writing to the terminal display.
@@ -100,8 +100,7 @@ public sealed class Program : MyGridProgram {
         if (!keep) 
         { 
             Echo(debugOutput);
-        }
-            
+        }       
     }
 
 //---------------------------------------------------------------------------------------------------------------------------------------
@@ -117,6 +116,9 @@ public sealed class Program : MyGridProgram {
         terminalLCD.ContentType = ContentType.TEXT_AND_IMAGE;
         terminalLCD.FontSize = 0.8f;
         writeOutput("Initializing Power Grid Script...\n\n",false);
+
+        // Gets the grid's name that the programmable block is on.
+        mainGridName = Me.CubeGrid.CustomName;
 
         // Initialize the display LCD.
         displayLCD = GridTerminalSystem.GetBlockWithName(outputDisplay) as IMyTextPanel;
@@ -216,14 +218,14 @@ public sealed class Program : MyGridProgram {
                 writeOutput($"Found {powerStrorage.Count} battery blocks.",true);
                 writeOutput("Power Grid Script Initialized",true);
             }
-                else // If gridhaspowerprocuder and gridhaspowerstorage are false.
-                {
-                    writeOutput("Both 'gridHasPowerProducer' and 'gridHasPowerStorage' can't be false.\nScript will not run.",true);
-                    bRunScript = false;
-                    return;
-                }
+            else // If gridhaspowerprocuder and gridhaspowerstorage are false.
+            {
+                writeOutput("Both 'gridHasPowerProducer' and 'gridHasPowerStorage' can't be false.\nScript will not run.",true);
+                bRunScript = false;
+                return;
             }
-
+        }
+            
     }
 
     public void Save() 
@@ -244,9 +246,8 @@ public sealed class Program : MyGridProgram {
         // Clear the output strings before each run. 
         output = "Power Grid Status (Updates every 1.6s):\n\n";
         debugOutput = "Debug Information (Updates every 1.6s):\n\n";
-
-        string producerOutput = string.Empty;
-        string storageOutput = string.Empty;
+        string producerOutput = "Power Production:\n";
+        string storageOutput = "Power Storage:\n";
 
         if (gridHasPowerProducer) // If user want to have a PowerProducer output
         {
@@ -284,10 +285,9 @@ public sealed class Program : MyGridProgram {
             }
 
             // Output the total current power produced, maximum power possible, and production efficiency.
-            producerOutput =   "Power Production:\n" +
-                                $"Total Current Power Produced: {totalCurrentPowerProduced:F2} MW\n" +
-                                $"Total Max Power Possible: {totalMaxPowerPossible:F2} MW\n" +
-                                $"Production Efficiency: {totalProductionEfficiency}%";
+            producerOutput = $"Total Current Power Produced: {totalCurrentPowerProduced:F2} MW\n" +
+                             $"Total Max Power Possible: {totalMaxPowerPossible:F2} MW\n" +
+                             $"Production Efficiency: {totalProductionEfficiency}%";
             }
 
             if (gridHasPowerStorage) // If user want to have a PowerStorage output
@@ -327,10 +327,9 @@ public sealed class Program : MyGridProgram {
                 }
 
                 // Output the total current power stored, maximum power storage, and storage used percentage.
-                storageOutput =     "Power Storage:\n" +
-                                    $"Total Current Power Stored: {totalCurrentPowerStored:F2} MW\n" +
-                                    $"Total Possible Power Storage: {totalMaxPowerStorage:F2} MW\n" +
-                                    $"Power Storage at: {totaltStorageUsed}%";
+                storageOutput += $"Total Current Power Stored: {totalCurrentPowerStored:F2} MW\n" +
+                                $"Total Possible Power Storage: {totalMaxPowerStorage:F2} MW\n" +
+                                $"Power Storage at: {totaltStorageUsed}%";
             }
 
             if (gridHasPowerProducer && gridHasPowerStorage) 
@@ -351,16 +350,20 @@ public sealed class Program : MyGridProgram {
 
             output += "\n\n Debug Information send to the console.";
 
-            // Output the results to the display LCD or terminal.
-            if (displayLCDExist) 
+            
+            if (displayLCDExist) // If Display Exists
             {
-                if (displayLCD.IsWorking)  
+                // Output the results to the display LCD or terminal.
+
+                if (displayLCD.IsWorking)  // If Display Working
                 {
+                    // Display
                     displayLCD.WriteText(output);
                     writeOutput(debugOutput,false);
                 }
                 else
                 {   
+                    // Terminal
                     debugOutput += $"Display LCD '{outputDisplay}' is not working.\n" +
                                     "Output will default to the Programmable Block's LCD.\n";
                     writeOutput(output,false);
