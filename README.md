@@ -1,12 +1,7 @@
-# ⚠️ Welcome to the Un-Tested Branch of BPG-SE
+# ⚡ Welcome to the Re-Work Branch of BPG-SE
+Where legacy code is restructured, logic is refactored, and better things are built.
 
-Where the bugs roam free and the code is still finding itself.
-This is the place to download and try experimental versions of the BetterPowerGrid for Space Engineers script.
+This branch represents a complete overhaul of the Better Power Grid script for Space Engineers. Unlike the Un-Tested branch, which contains raw experimental features, the Re-Work branch focuses on refining core logic, improving performance, and preparing for stable releases — though stability is still not guaranteed.
 
-🚧 Note: This script is in development — it may not run correctly, or at all. Use at your own risk!
----
-
-## Current features still in development
-
-- The minimum required power to run all **working power Consumers** on the same grid **connected** sub-grids.
+🚧 Warning: This branch is a work-in-progress. Features may be incomplete, broken, or behave unpredictably. Use with caution.
 -  
