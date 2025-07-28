@@ -364,8 +364,8 @@ public sealed class Program : MyGridProgram {
             {
                 terminalLCD.WriteText(output);
                 debugOutput += $"LCD: '{outputLcdName}' not found.\n";
-                    terminalLCD.WriteText(output, true);
-                    Echo(debugOutput);
+                terminalLCD.WriteText(output, true);
+                Echo(debugOutput);
             }   
     }
 
