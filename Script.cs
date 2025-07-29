@@ -293,7 +293,7 @@ public sealed class Program : MyGridProgram {
             string powerLeft = $"{timeLeft:F2} s";
             if (maxPowerStorage != 0)
             {
-                if (currentPowerStored <= 1) // Les or = to 1 MW then convert to kW back to MW
+                if (currentPowerStored <= 1) // Les or = to 1 MW then convert kW back to MW
                 {
 
                 }
