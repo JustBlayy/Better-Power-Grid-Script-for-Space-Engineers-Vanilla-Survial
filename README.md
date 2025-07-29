@@ -1,4 +1,4 @@
-# ⚡ Better Power Grid Script
+# ⚡ Better Power Grid Script (BPG-SE)
 
 This is the **main development branch** for the Better Power Grid script — a live project that will evolve as features are added and bugs are resolved.
 
