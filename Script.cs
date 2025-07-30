@@ -65,7 +65,7 @@ public sealed class Program : MyGridProgram {
     IMyTextPanel displayLCD;
 //------------------------------------------------------------------------------------- {OBJECTS}
    
-   bool runScript = true;
+    bool runScript = true;
     bool producerExists = false;
     bool storageExists = false;
     bool consumersExists = false;
@@ -107,29 +107,37 @@ public sealed class Program : MyGridProgram {
     {
         if (powerValue > 0)
         {
-            string[] units = { "W", "kW", "MW", "GW" };
-            int UnitPlacement = 2;
+            string[] units = { "W", "kW", "MW", "GW","TW"}; // 0 - Index array
+            int UnitPlacement = 2; // All power info is gathered in MWs
         
-            while(powerValue < 1 || powerValue >= 1000)
+            while(powerValue < 1 || powerValue >= 1000) // These are the unreadable values
             {
-                if (powerValue < 1)
+                if (UnitPlacement <= units.Length - 1) // Stops from going over max Array length 
                 {
-                    powerValue *= 1000;
-                    UnitPlacement--;
-                }
+                    if (powerValue < 1) // Moves to DOWN a unit
+                    {
+                        powerValue *= 1000;
+                        UnitPlacement--;
+                    }
             
-                if (powerValue >= 1000)
+                    if (powerValue >= 1000) // Moves to UP a unit
+                    {
+                        powerValue /= 1000;
+                        UnitPlacement++;    
+                    }
+                }
+                else
                 {
-                    powerValue /= 1000;
-                    UnitPlacement++;    
+                    return "TOO MUCH!"; // WHY DO YOU NEED THAN 999 TW OF POWER?????
                 }
             }
 
-            return $"{powerValue} {units[UnitPlacement]}";
+            return $"{powerValue} {units[UnitPlacement]}"; // Gets now readable value and needed unit 
         }
         else
         {
-            return "0 MW";
+            debugOutput += "If you seeing this well done, you managed to have power on 0 MW";
+            return "0 MW"; // You got no power you should not be seeing this
         }  
     }
 //------------------------------------------------------------------------------------- {METHODES}
