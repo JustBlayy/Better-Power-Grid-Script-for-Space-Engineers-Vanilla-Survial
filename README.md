@@ -4,7 +4,7 @@ This is the **main development branch** for the Better Power Grid script — a l
 
 > 🚧 **Note:** A public-ready version is not yet available.
 >  
-> If you're curious or want to contribute, you can check the `Un-Tested-Branch`, which contains experimental and incomplete versions.  
+> If you're curious or want to contribute, you can check the `Un-Tested Branch` or `Re-Work Branch` , which contains experimental and incomplete versions.  
 > These may not function correctly or run at all.
 
 ---
