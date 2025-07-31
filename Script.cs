@@ -70,6 +70,8 @@ public sealed class Program : MyGridProgram {
     bool storageExists = false;
     bool consumersExists = false;
     string debugOutput;
+    float maxProducersOutput = 0f;
+    float maxPowerStorage = 0f;
 //------------------------------------------------------------------------------------- {VARIABLES}
 
     void writeOutput(string text) 
@@ -169,12 +171,16 @@ public sealed class Program : MyGridProgram {
 
                         if (block is IMyBatteryBlock) // Checks for type Battery
                         {
+                            var battery = block as IMyBatteryBlock; 
                             powerStorage.Add(block as IMyBatteryBlock);
-                            writeOutput($"Found Battery: '{block.CustomName}'\n");
+                            maxPowerStorage += battery.MaxStoredPower; // Gets the max possible power storage
+                            writeOutput($"Found Battery: '{block.CustomName}'\n");  
                         }
                         else
                         {
+                            var producer = block as IMyPowerProducer;
                             powerProducers.Add(block as IMyPowerProducer);
+                            maxProducersOutput += producer.MaxOutput; // Gets the max possible power produced
                             writeOutput($"Found Producer: '{block.CustomName}'\n");
                         }
                     }
@@ -287,7 +293,7 @@ public sealed class Program : MyGridProgram {
         {
             // Producer's outputs
             float currentPowerProduced = 0f;
-            float maxProducersOutput = 0f;
+            
 
             // Loops through all the producers in the list
             foreach (IMyPowerProducer producer in powerProducers)
@@ -295,7 +301,6 @@ public sealed class Program : MyGridProgram {
                 if (producer.IsWorking) // Checks if the producer is working
                 {
                     currentPowerProduced += producer.CurrentOutput;
-                    maxProducersOutput += producer.MaxOutput;
                 }
                 else // if not working add to debug
                 {
@@ -322,7 +327,6 @@ public sealed class Program : MyGridProgram {
         {
             // Storage's outputs
             float currentPowerStored = 0f;
-            float maxPowerStorage = 0f;
             float currentStorageOutput = 0f;
 
             foreach (IMyBatteryBlock storage in powerStorage)
@@ -330,7 +334,6 @@ public sealed class Program : MyGridProgram {
                 if (storage.IsWorking) // Checks if the battery is working
                 {
                     currentPowerStored += storage.CurrentStoredPower;
-                    maxPowerStorage += storage.MaxStoredPower;
                     currentStorageOutput += storage.CurrentOutput; 
                 }
                 else // if not working add to debug
