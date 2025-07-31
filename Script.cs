@@ -116,7 +116,7 @@ public sealed class Program : MyGridProgram {
                 {
                     if (powerValue < 1) // Moves to DOWN a unit
                     {
-                        powerValue *= 1000; //
+                        powerValue *= 1000;
                         UnitPlacement--;
                     }
             
