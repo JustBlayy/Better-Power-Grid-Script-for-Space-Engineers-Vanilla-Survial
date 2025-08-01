@@ -69,7 +69,7 @@ public sealed class Program : MyGridProgram {
     bool producerExists = false;
     bool storageExists = false;
     bool consumersExists = false;
-    string debugOutput;
+    string debugOutput = string.Empty;
     float maxProducersOutput = 0f;
     float maxPowerStorage = 0f;
 //------------------------------------------------------------------------------------- {VARIABLES}
@@ -87,14 +87,14 @@ public sealed class Program : MyGridProgram {
                 }
                 else 
                 {
-                debugOutput += $"LCD: '{outputLcdName}' not working.\n";
+                debugOutput += $"LCD: '{outputLcdName}' not working.";
                 terminalLCD.WriteText(text, false);
                 }
             }
             else 
             {
                 terminalLCD.WriteText(text,false);
-                debugOutput += $"LCD: '{outputLcdName}' not found.\n";   
+                debugOutput += $"LCD: '{outputLcdName}' not found.";   
             } 
         }
         else
@@ -134,12 +134,11 @@ public sealed class Program : MyGridProgram {
                 }
             }
 
-            return $"{powerValue} {units[UnitPlacement]}"; // Gets now readable value and needed unit 
+            return $"{powerValue:F2} {units[UnitPlacement]}"; // Gets now readable value and needed unit 
         }
         else
         {
-            debugOutput += "If you seeing this well done, you managed to have power on 0 MW";
-            return "0 MW"; // You got no power you should not be seeing this
+            return "0 MW"; 
         }  
     }
 //------------------------------------------------------------------------------------- {METHODES}
@@ -148,13 +147,18 @@ public sealed class Program : MyGridProgram {
         {
             // Runs every 1.6s
             Runtime.UpdateFrequency = UpdateFrequency.Update100;
-
+            
             // Programmable Block (Defualt Output)
             terminalLCD = Me.GetSurface(0);
-            writeOutput("Initializing Power Grid Script...\n\n");
+            terminalLCD.ContentType = ContentType.TEXT_AND_IMAGE;
 
-            // Try get needed objects
             displayLCD = GridTerminalSystem.GetBlockWithName(outputLcdName) as IMyTextPanel;
+            if (displayLCD != null) 
+            {
+                displayLCD.ContentType = ContentType.TEXT_AND_IMAGE;
+            }
+
+            writeOutput("Initializing Power Grid Script...\n\n");
 
             /*
             Adds all blocks in a list in their own construct/grid
@@ -267,10 +271,10 @@ public sealed class Program : MyGridProgram {
     
     public void Save() // Save state
     { 
-      if (!runScript) // Won't run the script if the requirments are not met.
+        if (!runScript) // Won't run the script if the requirments are not met.
         {
             return;
-        }      
+        }
     }
 
     public void Main(string argument, UpdateType updateSource) // Running code
@@ -284,17 +288,14 @@ public sealed class Program : MyGridProgram {
                         "Updates every 1.6s\n\n";
         debugOutput = "Debug Information (Updates every 1.6s) :\n\n";
         
-        string producersOutput = "";
-        string storageOutput = "";
-
-        debugOutput = "Debug Information (Updates every 1.6s):\n\n";
+        string producersOutput = string.Empty;
+        string storageOutput = string.Empty;
 
         if (gridHasPowerProduction)
         {
             // Producer's outputs
             float currentPowerProduced = 0f;
             
-
             // Loops through all the producers in the list
             foreach (IMyPowerProducer producer in powerProducers)
             {
@@ -376,7 +377,7 @@ public sealed class Program : MyGridProgram {
             }
             // Power storage output
             storageOutput = "Power Storage:\n" +
-                            $"Power Stored: {powerStorage}\n" +
+                            $"Power Stored: {determineUnit(currentPowerStored)}\n" +
                             $"Max Storage: {determineUnit(maxPowerStorage)}\n" +
                             $"Storage at: {storageEfficiency}%\n" +
                             $"Time before depleted: {powerLeft}";
@@ -398,7 +399,7 @@ public sealed class Program : MyGridProgram {
         
         output += "\n\nDebug information sent to console.";
         
-         
+        writeOutput(output);
     }
 
     #endregion // ImprovedBetterPowerScript
